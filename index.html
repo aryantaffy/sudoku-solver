@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Solver</title>
+    <link rel="stylesheet" href="static/style.css">
+    <script>
+        async function handleFileUpload(event) {
+            const files = document.getElementById('fileInput').files;
+            if (!files.length) {
+                alert("Please upload at least one image.");
+                return;
+            }
+
+            const formData = new FormData();
+            for (const file of files) {
+                formData.append("files", file);
+            }
+
+            const response = await fetch('/extract', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                displayGrid(result.grid);
+            } else {
+                alert(result.error || "Failed to extract Sudoku.");
+            }
+        }
+
+        function displayGrid(grid) {
+            const gridContainer = document.getElementById('grid');
+            gridContainer.innerHTML = '';
+            grid.forEach((row, rowIndex) => {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'grid-row';
+                row.forEach((cell, colIndex) => {
+                    const cellInput = document.createElement('input');
+                    cellInput.type = 'text';
+                    cellInput.maxLength = 1;
+                    cellInput.value = cell || '';
+                    cellInput.disabled = !!cell; // Disable pre-filled cells
+                    cellInput.dataset.row = rowIndex;
+                    cellInput.dataset.col = colIndex;
+                    cellInput.addEventListener('click', () => selectCell(rowIndex, colIndex));
+                    rowDiv.appendChild(cellInput);
+                });
+                gridContainer.appendChild(rowDiv);
+            });
+        }
+
+        async function solvePuzzle(mode) {
+            const cells = document.querySelectorAll('#grid input');
+            const grid = Array.from({ length: 9 }, () => Array(9).fill(0));
+
+            cells.forEach(cell => {
+                const row = cell.dataset.row;
+                const col = cell.dataset.col;
+                grid[row][col] = parseInt(cell.value) || 0;
+            });
+
+            const body = { grid, mode };
+
+            if (mode === 'hint') {
+                const selectedCell = document.querySelector('.selected');
+                if (!selectedCell) {
+                    alert("Please select a cell for a hint.");
+                    return;
+                }
+                body.cell = {
+                    row: parseInt(selectedCell.dataset.row),
+                    col: parseInt(selectedCell.dataset.col),
+                };
+            }
+
+            const response = await fetch('/solve', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                if (mode === 'solve') {
+                    displayGrid(result.solved_grid);
+                } else if (mode === 'hint') {
+                    const selectedCell = document.querySelector('.selected');
+                    selectedCell.value = result.hint;
+                    selectedCell.classList.remove('selected');
+                }
+            } else {
+                alert(result.error || "Failed to process Sudoku.");
+            }
+        }
+
+        function selectCell(row, col) {
+            document.querySelectorAll('.selected').forEach(cell => cell.classList.remove('selected'));
+            const cell = document.querySelector(`input[data-row="${row}"][data-col="${col}"]`);
+            if (cell) cell.classList.add('selected');
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Sudoku Solver</h1>
+        <div class="upload-section">
+            <input type="file" id="fileInput" multiple>
+            <button onclick="handleFileUpload()">Upload & Extract</button>
+        </div>
+        <div id="grid" class="grid-container"></div>
+        <div class="controls">
+            <button onclick="solvePuzzle('solve')">Solve</button>
+            <button onclick="solvePuzzle('hint')">Get Hint</button>
+        </div>
+    </div>
+</body>
+</html>
