@@ -1,8 +1,8 @@
-from flask import Flask, request, jsonify, send_from_directory
-from flask_cors import CORS
+from flask import Flask, request, jsonify, render_template
+from flask_cors import CORS # type: ignore
 import os
-import cv2
-import numpy as np
+import cv2 # type: ignore
+import numpy as np # type: ignore
 
 app = Flask(__name__, static_folder="static")
 CORS(app)
@@ -52,8 +52,8 @@ def perform_ocr(image):
 
 @app.route("/")
 def index():
-    """Serve the main application page from static folder."""
-    return send_from_directory('static', 'index.html')
+    """Serve the main application page."""
+    return render_template("index.html")
 
 
 @app.route("/extract", methods=["POST"])

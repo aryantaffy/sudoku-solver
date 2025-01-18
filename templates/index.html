@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sudoku Solver</title>
-    <link rel="stylesheet" href="http://localhost:8000/static/style.css">
+    <link rel="stylesheet" href="/static/style.css">
     <script>
         async function handleFileUpload(event) {
             const files = document.getElementById('fileInput').files;
@@ -18,7 +18,7 @@
                 formData.append("files", file);
             }
 
-            const response = await fetch('http://localhost:8000/extract', {
+            const response = await fetch('/extract', {
                 method: 'POST',
                 body: formData
             });
@@ -77,7 +77,7 @@
                 };
             }
 
-            const response = await fetch('http://localhost:8000/solve', {
+            const response = await fetch('/solve', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
