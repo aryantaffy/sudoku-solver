@@ -7,7 +7,7 @@ def is_valid(board, row, col, num):
     # Check the column
     if num in [board[i][col] for i in range(9)]:
         return False
-    # Check the 3x3 subgrid
+    # Check the 3x3 subgrid (box)
     start_row, start_col = 3 * (row // 3), 3 * (col // 3)
     for i in range(start_row, start_row + 3):
         for j in range(start_col, start_col + 3):
