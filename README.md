@@ -7,7 +7,7 @@ A web-based Sudoku Solver that allows users to upload images of Sudoku puzzles, 
 - Upload images of Sudoku puzzles.
 - Extract Sudoku grids from uploaded images using OCR.
 - Solve the entire Sudoku puzzle.
-- Get hints for specific cells in the puzzle.
+- Can give hints for specific cells in the puzzle or solve the entire puzzle.
 - Intuitive and user-friendly interface.
 - Responsive design for various devices.
 
