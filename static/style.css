@@ -15,7 +15,7 @@ body {
     background: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 400px;
+    width: 500px; /* Increase container width */
 }
 
 h1 {
@@ -47,26 +47,26 @@ button:hover {
 }
 
 .grid-container {
-    display: grid;
-    grid-template-rows: repeat(9, 1fr);
-    gap: 5px;
-    margin: 20px 0;
+    display: inline-block; /* Change from grid to inline-block */
+    margin: 20px auto;
+    padding: 10px;
 }
 
 .grid-row {
-    display: grid;
-    grid-template-columns: repeat(9, 1fr);
-    gap: 5px;
+    display: flex; /* Change from grid to flex */
+    justify-content: center;
+    margin-bottom: 2px; /* Add small gap between rows */
 }
 
 input[type="text"] {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     text-align: center;
     font-size: 18px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f7f7f7;
+    border-radius: 3px;
+    margin: 0 2px; /* Add small horizontal gap between cells */
+    padding: 0;
 }
 
 input[type="text"]:disabled {
@@ -77,6 +77,23 @@ input[type="text"]:disabled {
 input[type="text"].selected {
     border: 2px solid #007bff;
     outline: none;
+}
+input[type="file"] {
+    display: none;
+}
+.file-input-label {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 5px;
+}
+
+.file-input-label:hover {
+    background-color: #0056b3;
 }
 
 .controls {

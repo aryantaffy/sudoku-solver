@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
+from flask_cors import CORS
 import os
 import cv2
 import numpy as np
 
-app = Flask(__name__, template_folder=os.path.dirname(os.path.abspath(__file__)), static_folder="static")
-
+app = Flask(__name__, static_folder="static")
+CORS(app)
 
 # Sudoku Solver Utilities
 def solve_sudoku(grid):
@@ -51,8 +52,8 @@ def perform_ocr(image):
 
 @app.route("/")
 def index():
-    """Render the main application page."""
-    return render_template("index.html")
+    """Serve the main application page from static folder."""
+    return send_from_directory('static', 'index.html')
 
 
 @app.route("/extract", methods=["POST"])

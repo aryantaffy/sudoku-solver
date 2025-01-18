@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sudoku Solver</title>
-    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="http://localhost:8000/static/style.css">
     <script>
         async function handleFileUpload(event) {
             const files = document.getElementById('fileInput').files;
@@ -18,7 +18,7 @@
                 formData.append("files", file);
             }
 
-            const response = await fetch('/extract', {
+            const response = await fetch('http://localhost:8000/extract', {
                 method: 'POST',
                 body: formData
             });
@@ -77,7 +77,7 @@
                 };
             }
 
-            const response = await fetch('/solve', {
+            const response = await fetch('http://localhost:8000/solve', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
@@ -103,13 +103,19 @@
             const cell = document.querySelector(`input[data-row="${row}"][data-col="${col}"]`);
             if (cell) cell.classList.add('selected');
         }
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const fileNames = Array.from(this.files).map(file => file.name).join(', ');
+            document.getElementById('fileNameDisplay').textContent = fileNames;
+        });
     </script>
 </head>
 <body>
     <div class="container">
         <h1>Sudoku Solver</h1>
         <div class="upload-section">
-            <input type="file" id="fileInput" multiple>
+            <label for="fileInput" class="file-input-label">Choose Files</label>
+            <span id="fileNameDisplay">No file chosen</span>
+            <input type="file" id="fileInput" multiple style="display: none;">
             <button onclick="handleFileUpload()">Upload & Extract</button>
         </div>
         <div id="grid" class="grid-container"></div>
