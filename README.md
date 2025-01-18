@@ -7,7 +7,7 @@ A web-based Sudoku Solver that allows users to upload images of Sudoku puzzles, 
 - Upload images of Sudoku puzzles.
 - Extract Sudoku grids from uploaded images using OCR.
 - Solve the entire Sudoku puzzle.
-- Can give hints for specific cells in the puzzle or solve the entire puzzle.
+- Provide hints for specific cells in the puzzle.
 - Intuitive and user-friendly interface.
 - Responsive design for various devices.
 
@@ -56,7 +56,8 @@ project/
 ├── templates/
 │   └── index.html          # HTML frontend
 ├── static/
-│   └── style.css           # CSS styling
+│   ├── style.css           # CSS styling
+│   ├── background.jpg      # Background image
 ├── requirements.txt        # Python dependencies
 ├── README.md               # Project documentation
 ```
@@ -65,7 +66,8 @@ project/
 
 1. **Upload Puzzle**: Upload one or more images of Sudoku puzzles.
 2. **Solve Puzzle**: View the solved puzzle or receive a hint for a specific cell.
-3. **Hint Mode**: Select any empty cell and get the correct value as a hint.
+3. **Manual Input**: In case the puzzle is not detected correctly, you can add numbers manually to the grid.
+4. **Instructions**: Follow the on-screen instructions for a smooth experience.
 
 ## Dependencies
 
@@ -73,6 +75,9 @@ project/
 - OpenCV
 - NumPy
 - Tesseract OCR
+- Jinja2 (used for templating)
+- Werkzeug (Flask dependency)
+- JavaScript (client-side logic)
 
 Install dependencies with:
 ```bash
@@ -100,5 +105,8 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Acknowledgments
 
-- [Tesseract OCR](https://github.com/tesseract-ocr/tesseract)
-- [OpenCV](https://opencv.org/)
+- [Tesseract OCR](https://github.com/tesseract-ocr/tesseract) for text recognition.
+- [OpenCV](https://opencv.org/) for image preprocessing and manipulation.
+- [Flask](https://flask.palletsprojects.com/) for building the backend.
+- [NumPy](https://numpy.org/) for efficient numerical computation.
+- [Render](https://render.com/) for hosting the application.

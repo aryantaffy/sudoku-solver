@@ -2,11 +2,41 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f7f9fc;
+    background: url("/static/background.jpg") no-repeat center center fixed;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    input[type="text"] {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+    }
+
+    button {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+}
+
+.instructions {
+    margin: 10px 0 20px;
+    padding: 15px;
+    background-color: #f0f8ff;
+    border: 1px solid #d1e7fd;
+    border-radius: 8px;
+    color: #333333;
+    font-size: 14px;
+    line-height: 1.6;
 }
 
 .container {
@@ -32,7 +62,7 @@ input[type="file"] {
 }
 
 button {
-    background-color: #007bff;
+    background-color: #163574; /* Updated button color */
     color: white;
     border: none;
     padding: 10px 20px;
@@ -43,13 +73,14 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #140a3f; /* Darker shade for hover */
 }
 
 .grid-container {
     display: inline-block; /* Change from grid to inline-block */
     margin: 20px auto;
     padding: 10px;
+    position: relative;
 }
 
 .grid-row {
@@ -67,6 +98,7 @@ input[type="text"] {
     border-radius: 3px;
     margin: 0 2px; /* Add small horizontal gap between cells */
     padding: 0;
+    position: relative;
 }
 
 input[type="text"]:disabled {
@@ -78,12 +110,40 @@ input[type="text"].selected {
     border: 2px solid #007bff;
     outline: none;
 }
+
+/* Add thicker borders for 3x3 grid blocks */
+.grid-row:nth-child(3n) input[type="text"] {
+    border-bottom: 3px solid #140a3f; /* Updated purple line color */
+}
+
+input[type="text"]:nth-child(3n) {
+    border-right: 3px solid #140a3f; /* Updated purple line color */
+}
+
+/* Add borders for the grid container */
+.grid-container input:first-child {
+    border-left: 3px solid #140a3f;
+}
+
+.grid-container input:last-child {
+    border-right: 3px solid #140a3f;
+}
+
+.grid-container .grid-row:first-child input {
+    border-top: 3px solid #140a3f;
+}
+
+.grid-container .grid-row:last-child input {
+    border-bottom: 3px solid #140a3f;
+}
+
 input[type="file"] {
     display: none;
 }
+
 .file-input-label {
     display: inline-block;
-    background-color: #007bff;
+    background-color: #163574; /* Updated button color */
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
@@ -93,7 +153,13 @@ input[type="file"] {
 }
 
 .file-input-label:hover {
-    background-color: #0056b3;
+    background-color: #140a3f; /* Darker shade for hover */
+}
+
+#fileNameDisplay {
+    font-size: 14px;
+    color: #555555;
+    margin-left: 10px;
 }
 
 .controls {
